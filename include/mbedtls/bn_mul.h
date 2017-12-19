@@ -732,7 +732,8 @@
 #endif /* MIPS */
 #endif /* GNUC */
 
-#if (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
+#if defined(_MSC_VER)
+#if defined(_M_IX86) || defined(__WATCOMC__)
 
 #define MULADDC_INIT                            \
     __asm   mov     esi, s                      \
@@ -831,6 +832,24 @@
     __asm   mov     s, esi                      \
 
 #endif /* SSE2 */
+
+#elif defined(_M_X64) /* end _M_IX86 || __WATCOMC__ */
+
+#include <intrin.h>
+
+#define MULADDC_INIT                    \
+{                                       \
+    mbedtls_mpi_uint r0, r1;
+
+#define MULADDC_CORE                    \
+    r0 = _umul128(*(s++), b, &r1);      \
+    r0 += c;  r1 += (r0 <  c);          \
+    r0 += *d; r1 += (r0 < *d);          \
+    c = r1; *(d++) = r0;
+
+#define MULADDC_STOP                    \
+}
+#endif /* _M_X64 */
 #endif /* MSVC */
 
 #endif /* MBEDTLS_HAVE_ASM */
