@@ -114,7 +114,7 @@
  *
  * Uncomment if the CPU supports SSE2 (IA-32 specific).
  */
-//#define MBEDTLS_HAVE_SSE2
+#define MBEDTLS_HAVE_SSE2
 
 /**
  * \def MBEDTLS_HAVE_TIME
@@ -1519,7 +1519,7 @@
  * Module:  library/aesni.c
  * Caller:  library/aes.c
  *
- * Requires: MBEDTLS_HAVE_ASM
+ * Requires: MBEDTLS_HAVE_ASM or MBEDTLS_HAVE_X64_INTRINSICS
  *
  * This modules adds support for the AES-NI instructions on x86-64
  */
@@ -2124,7 +2124,9 @@
  *
  * This modules adds support for the VIA PadLock on x86.
  */
+#if !defined(_MSC_VER) && !defined(_M_X64)
 #define MBEDTLS_PADLOCK_C
+#endif
 
 /**
  * \def MBEDTLS_PEM_PARSE_C
