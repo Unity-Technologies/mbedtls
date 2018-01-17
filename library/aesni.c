@@ -446,29 +446,29 @@ inline static void aes_key_256_assist_2(__m128i* temp1, __m128i* temp3)
  * Key expansion, 128-bit case
  */
 static void aesni_setkey_enc_128( unsigned char *rk,
-                                  const unsigned char *inkey )
+                                  const unsigned char *key )
 {
 #if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
-    __m128i* xrk, key;
+    __m128i* xrk, k;
 
     xrk = (__m128i*)rk;
 
 #define EXPAND_ROUND(k, rcon) \
-    _mm_storeu_si128(xrk++, k); \
-    k = aes_key_128_assist(k, _mm_aeskeygenassist_si128(k, rcon))
+    _mm_storeu_si128( xrk++, k ); \
+    k = aes_key_128_assist( k, _mm_aeskeygenassist_si128( k, rcon ) )
 
-    key = _mm_loadu_si128((__m128i*)inkey);
-    EXPAND_ROUND(key, 0x01);
-    EXPAND_ROUND(key, 0x02);
-    EXPAND_ROUND(key, 0x04);
-    EXPAND_ROUND(key, 0x08);
-    EXPAND_ROUND(key, 0x10);
-    EXPAND_ROUND(key, 0x20);
-    EXPAND_ROUND(key, 0x40);
-    EXPAND_ROUND(key, 0x80);
-    EXPAND_ROUND(key, 0x1b);
-    EXPAND_ROUND(key, 0x36);
-    _mm_storeu_si128(xrk, key);
+    k = _mm_loadu_si128( (__m128i*)key );
+    EXPAND_ROUND( k, 0x01 );
+    EXPAND_ROUND( k, 0x02 );
+    EXPAND_ROUND( k, 0x04 );
+    EXPAND_ROUND( k, 0x08 );
+    EXPAND_ROUND( k, 0x10 );
+    EXPAND_ROUND( k, 0x20 );
+    EXPAND_ROUND( k, 0x40 );
+    EXPAND_ROUND( k, 0x80 );
+    EXPAND_ROUND( k, 0x1b );
+    EXPAND_ROUND( k, 0x36 );
+    _mm_storeu_si128( xrk, k );
 
 #undef EXPAND_ROUND
 
