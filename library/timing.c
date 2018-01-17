@@ -117,6 +117,24 @@ unsigned long mbedtls_timing_hardclock( void )
 #endif /* !HAVE_HARDCLOCK && MBEDTLS_HAVE_ASM &&
           __GNUC__ && ( __amd64__ || __x86_64__ ) */
 
+#if !defined(HAVE_HARDCLOCK) && defined(MBEDTLS_HAVE_INTRINSICS) &&  \
+    ( defined(_MSC_VER) && defined(_M_X64) )
+
+#define HAVE_HARDCLOCK
+
+unsigned long mbedtls_timing_hardclock(void)
+{
+    union
+    {
+        __int64 i64;
+        struct { unsigned long lo, hi; } u32;
+    } tsc;
+    tsc.i64 = __rdtsc();
+    return tsc.u32.lo;
+}
+#endif /* !HAVE_HARDCLOCK && MBEDTLS_HAVE_INTRINSICS && _MSC_VER && _M_X64 */
+
+
 #if !defined(HAVE_HARDCLOCK) && defined(MBEDTLS_HAVE_ASM) &&  \
     defined(__GNUC__) && ( defined(__powerpc__) || defined(__ppc__) )
 
