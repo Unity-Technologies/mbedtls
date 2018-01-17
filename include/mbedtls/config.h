@@ -53,7 +53,31 @@
  *
  * Comment to disable the use of assembly code.
  */
+#if !(defined(_MSC_VER) && defined(_M_X64))
 #define MBEDTLS_HAVE_ASM
+#endif
+
+
+/**
+* \def MBEDTLS_HAVE_INTRINSICS
+*
+* The compiler has support for intrinsic functions.
+*
+* Use this as an alternative to MBEDTLS_HAVE_ASM on compilers that don't
+* support inline assembly, but provide intrinsic functions for needed
+* instructions.
+*
+* Used in:
+*      include/mbedtls/bn_mul.h
+*      library/timing.c
+*      library/aesni.c
+*
+* Comment to disable the use of intrinsics in code.
+*/
+#if defined(_MSC_VER) && defined(_M_X64)
+#define MBEDTLS_HAVE_INTRINSICS
+#endif
+
 
 /**
  * \def MBEDTLS_NO_UDBL_DIVISION
