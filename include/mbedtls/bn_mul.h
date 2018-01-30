@@ -845,11 +845,11 @@
     unsigned char carry;
 
 #define MULADDC_CORE                       \
-    r0 = _umul128(*(s++), b, &r1);         \
-    carry = _addcarry_u64(0, r0, c, &r0);  \
-    _addcarry_u64(carry, r1, 0, &r1);      \
-    carry = _addcarry_u64(0, r0, *d, &r0); \
-    _addcarry_u64(carry, r1, 0, &r1);      \
+    r0 = _umul128( *(s++), b, &r1 );         \
+    carry = _addcarry_u64( 0, r0, c, &r0 );  \
+    _addcarry_u64( carry, r1, 0, &r1 );      \
+    carry = _addcarry_u64( 0, r0, *d, &r0 ); \
+    _addcarry_u64( carry, r1, 0, &r1 );      \
     c = r1; *(d++) = r0;
 
 #define MULADDC_STOP                    \
