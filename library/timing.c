@@ -126,10 +126,10 @@ unsigned long mbedtls_timing_hardclock(void)
 {
     union
     {
-        __int64 i64;
+        unsigned __int64 u64;
         struct { unsigned long lo, hi; } u32;
     } tsc;
-    tsc.i64 = __rdtsc();
+    tsc.u64 = __rdtsc();
     return tsc.u32.lo;
 }
 #endif /* !HAVE_HARDCLOCK && MBEDTLS_HAVE_INTRINSICS && _MSC_VER && _M_X64 */

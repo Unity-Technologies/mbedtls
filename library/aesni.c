@@ -44,9 +44,6 @@
 
 #if defined(MBEDTLS_HAVE_INTRINSICS) && defined(_M_X64) && defined(_MSC_VER)
 #define MBEDTLS_HAVE_MSC_X64_INTRINSICS
-#endif
-
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
 #include <intrin.h>
 #endif
 
@@ -62,7 +59,7 @@ int mbedtls_aesni_has_support( unsigned int what )
     {
 #if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
         int regs[4]; // eax, ebx, ecx, edx
-        __cpuid(regs, 1);
+        __cpuid( regs, 1 );
         c = regs[2];
 #else
         asm( "movl  $1, %%eax   \n\t"
@@ -216,7 +213,7 @@ static inline __m128i reducemod128( __m128i x10, __m128i x32 )
     // d:x0 = x1:x0 ^ [a^b^c:0]
     dx0 = _mm_xor_si128( x10, _mm_slli_si128( _mm_xor_si128( _mm_xor_si128( a, b ), c ), 8 ) );
 
-    // (3) right shift [D:x0] by 1, 2, 7
+    // (3) right shift [d:x0] by 1, 2, 7
     e = _mm_or_si128( _mm_srli_epi64( dx0, 1 ), _mm_srli_si128( _mm_slli_epi64( dx0, 63 ), 8 ) );
     f = _mm_or_si128( _mm_srli_epi64( dx0, 2 ), _mm_srli_si128( _mm_slli_epi64( dx0, 62 ), 8 ) );
     g = _mm_or_si128( _mm_srli_epi64( dx0, 7 ), _mm_srli_si128( _mm_slli_epi64( dx0, 57 ), 8 ) );
