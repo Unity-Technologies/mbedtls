@@ -732,7 +732,7 @@
 #endif /* MIPS */
 #endif /* GNUC */
 
-#if defined(_MSC_VER) && (defined(_M_IX86) || defined(__WATCOMC__))
+#if (defined(_MSC_VER) && defined(_M_IX86)) || defined(__WATCOMC__)
 
 #define MULADDC_INIT                            \
     __asm   mov     esi, s                      \
@@ -831,7 +831,7 @@
     __asm   mov     s, esi                      \
 
 #endif /* SSE2 */
-#endif /* _MSC_VER && (_M_IX86 || __WATCOMC__) */
+#endif /* (MSVC && _M_IX86) || __WATCOMC__ */
 #endif /* MBEDTLS_HAVE_ASM */
 
 #if defined(MBEDTLS_HAVE_INTRINSICS)
