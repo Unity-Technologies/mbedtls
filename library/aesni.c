@@ -42,7 +42,7 @@
 
 #if defined(MBEDTLS_HAVE_X86_64)
 
-#if defined(MBEDTLS_HAVE_INTRINSICS) && defined(_M_X64) && defined(_MSC_VER)
+#if defined(_MSC_VER) && defined(_M_X64)
 #define MBEDTLS_HAVE_MSC_X64_INTRINSICS
 #include <intrin.h>
 #endif

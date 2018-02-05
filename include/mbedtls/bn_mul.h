@@ -834,7 +834,6 @@
 #endif /* (MSVC && _M_IX86) || __WATCOMC__ */
 #endif /* MBEDTLS_HAVE_ASM */
 
-#if defined(MBEDTLS_HAVE_INTRINSICS)
 #if defined(_MSC_VER) && defined(_M_X64)
 
 #include <intrin.h>
@@ -855,7 +854,6 @@
 #define MULADDC_STOP                    \
 }
 #endif /* _MSC_VER && _M_X64 */
-#endif /* MBEDTLS_HAVE_INTRINSICS */
 
 #if !defined(MULADDC_CORE)
 #if defined(MBEDTLS_HAVE_UDBL)
