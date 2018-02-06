@@ -2,7 +2,8 @@
  * \file aesni.h
  *
  * \brief AES-NI for hardware AES acceleration on some Intel processors
- *
+ */
+/*
  *  Copyright (C) 2006-2015, ARM Limited, All Rights Reserved
  *  SPDX-License-Identifier: Apache-2.0
  *
@@ -30,6 +31,11 @@
 
 #if defined(MBEDTLS_HAVE_ASM) && defined(__GNUC__) &&  \
     ( defined(__amd64__) || defined(__x86_64__) )   &&  \
+    ! defined(MBEDTLS_HAVE_X86_64)
+#define MBEDTLS_HAVE_X86_64
+#endif
+
+#if defined(_MSC_VER) && defined(_M_X64) &&  \
     ! defined(MBEDTLS_HAVE_X86_64)
 #define MBEDTLS_HAVE_X86_64
 #endif
