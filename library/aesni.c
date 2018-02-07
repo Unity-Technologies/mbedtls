@@ -43,7 +43,7 @@
 #if defined(MBEDTLS_HAVE_X86_64)
 
 #if defined(_MSC_VER) && defined(_M_X64)
-#define MBEDTLS_HAVE_MSC_X64_INTRINSICS
+#define MBEDTLS_HAVE_MSVC_X64_INTRINSICS
 #include <intrin.h>
 #endif
 
@@ -57,7 +57,7 @@ int mbedtls_aesni_has_support( unsigned int what )
 
     if( ! done )
     {
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
         int regs[4]; // eax, ebx, ecx, edx
         __cpuid( regs, 1 );
         c = regs[2];
@@ -108,7 +108,7 @@ int mbedtls_aesni_crypt_ecb( mbedtls_aes_context *ctx,
                      const unsigned char input[16],
                      unsigned char output[16] )
 {
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
     __m128i* rk, a;
     int i;
 
@@ -168,7 +168,7 @@ int mbedtls_aesni_crypt_ecb( mbedtls_aes_context *ctx,
     return( 0 );
 }
 
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
 
 static inline void clmul256( __m128i a, __m128i b, __m128i* r0, __m128i* r1 )
 {
@@ -236,7 +236,7 @@ void mbedtls_aesni_gcm_mult( unsigned char c[16],
                      const unsigned char b[16] )
 {
 
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
     __m128i xa, xb, m0, m1, x10, x32, r;
 
     xa.m128i_u64[1] = _byteswap_uint64( *((unsigned __int64*)a + 0) );
@@ -368,7 +368,7 @@ void mbedtls_aesni_inverse_key( unsigned char *invkey,
     memcpy( ik, fk, 16 );
 
     for( fk -= 16, ik += 16; fk > fwdkey; fk -= 16, ik += 16 )
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
         _mm_storeu_si128( (__m128i*)ik, _mm_aesimc_si128( _mm_loadu_si128( (__m128i*)fk) ) );
 #else
         asm( "movdqu (%0), %%xmm0       \n\t"
@@ -382,7 +382,7 @@ void mbedtls_aesni_inverse_key( unsigned char *invkey,
     memcpy( ik, fk, 16 );
 }
 
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
 inline static __m128i aes_key_128_assist( __m128i key, __m128i kg )
 {
     key = _mm_xor_si128( key, _mm_slli_si128( key, 4 ) );
@@ -437,7 +437,7 @@ inline static void aes_key_256_assist_2( __m128i* temp1, __m128i* temp3 )
     *temp3 = _mm_xor_si128( *temp3, temp4 );
     *temp3 = _mm_xor_si128( *temp3, temp2 );
 }
-#endif /* MBEDTLS_HAVE_MSC_X64_INTRINSICS */
+#endif /* MBEDTLS_HAVE_MSVC_X64_INTRINSICS */
 
 /*
  * Key expansion, 128-bit case
@@ -445,7 +445,7 @@ inline static void aes_key_256_assist_2( __m128i* temp1, __m128i* temp3 )
 static void aesni_setkey_enc_128( unsigned char *rk,
                                   const unsigned char *key )
 {
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
     __m128i* xrk, k;
 
     xrk = (__m128i*)rk;
@@ -513,7 +513,7 @@ static void aesni_setkey_enc_128( unsigned char *rk,
          :
          : "r" (rk), "r" (key)
          : "memory", "cc", "0" );
-#endif /* MBEDTLS_HAVE_MSC_X64_INTRINSICS */
+#endif /* MBEDTLS_HAVE_MSVC_X64_INTRINSICS */
 }
 
 /*
@@ -522,7 +522,7 @@ static void aesni_setkey_enc_128( unsigned char *rk,
 static void aesni_setkey_enc_192( unsigned char *rk,
                                   const unsigned char *key )
 {
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
     __m128i temp1, temp3;
     __m128i *key_schedule = (__m128i*)rk;
     temp1 = _mm_loadu_si128( (__m128i*)key );
@@ -602,7 +602,7 @@ static void aesni_setkey_enc_192( unsigned char *rk,
          :
          : "r" (rk), "r" (key)
          : "memory", "cc", "0" );
-#endif /* MBEDTLS_HAVE_MSC_X64_INTRINSICS */
+#endif /* MBEDTLS_HAVE_MSVC_X64_INTRINSICS */
 }
 
 /*
@@ -611,7 +611,7 @@ static void aesni_setkey_enc_192( unsigned char *rk,
 static void aesni_setkey_enc_256( unsigned char *rk,
                                   const unsigned char *key )
 {
-#if defined(MBEDTLS_HAVE_MSC_X64_INTRINSICS)
+#if defined(MBEDTLS_HAVE_MSVC_X64_INTRINSICS)
     __m128i temp1, temp3;
     __m128i *key_schedule = (__m128i*)rk;
     temp1 = _mm_loadu_si128( (__m128i*)key );
@@ -703,7 +703,7 @@ static void aesni_setkey_enc_256( unsigned char *rk,
          :
          : "r" (rk), "r" (key)
          : "memory", "cc", "0" );
-#endif /* MBEDTLS_HAVE_MSC_X64_INTRINSICS */
+#endif /* MBEDTLS_HAVE_MSVC_X64_INTRINSICS */
 }
 
 /*
