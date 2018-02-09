@@ -53,10 +53,7 @@
  *
  * Comment to disable the use of assembly code.
  */
-#if !(defined(_MSC_VER) && defined(_M_X64))
 #define MBEDTLS_HAVE_ASM
-#endif
-
 
 /**
  * \def MBEDTLS_NO_UDBL_DIVISION
@@ -2103,9 +2100,7 @@
  *
  * This modules adds support for the VIA PadLock on x86.
  */
-#if !defined(_MSC_VER) && !defined(_M_X64)
 #define MBEDTLS_PADLOCK_C
-#endif
 
 /**
  * \def MBEDTLS_PEM_PARSE_C
