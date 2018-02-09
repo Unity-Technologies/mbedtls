@@ -832,7 +832,6 @@
 
 #endif /* SSE2 */
 #endif /* (MSVC && _M_IX86) || __WATCOMC__ */
-#endif /* MBEDTLS_HAVE_ASM */
 
 #if defined(_MSC_VER) && defined(_M_X64)
 
@@ -854,6 +853,8 @@
 #define MULADDC_STOP                    \
 }
 #endif /* _MSC_VER && _M_X64 */
+
+#endif /* MBEDTLS_HAVE_ASM */
 
 #if !defined(MULADDC_CORE)
 #if defined(MBEDTLS_HAVE_UDBL)

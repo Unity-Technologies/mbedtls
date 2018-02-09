@@ -117,7 +117,7 @@ unsigned long mbedtls_timing_hardclock( void )
 #endif /* !HAVE_HARDCLOCK && MBEDTLS_HAVE_ASM &&
           __GNUC__ && ( __amd64__ || __x86_64__ ) */
 
-#if !defined(HAVE_HARDCLOCK) && defined(_MSC_VER) && defined(_M_X64)
+#if defined(MBEDTLS_HAVE_ASM) && !defined(HAVE_HARDCLOCK) && defined(_MSC_VER) && defined(_M_X64)
 
 #define HAVE_HARDCLOCK
 
