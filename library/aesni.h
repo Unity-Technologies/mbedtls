@@ -27,7 +27,7 @@
  * (Only implemented with certain compilers, only for certain targets.)
  */
 #undef MBEDTLS_AESNI_HAVE_INTRINSICS
-#if defined(_MSC_VER) && !defined(__clang__)
+#if defined(_MSC_VER) && !defined(__clang__) && !defined(_M_ARM) && !defined(_M_ARM64) && !defined(_M_ARM64EC)
 /* Visual Studio supports AESNI intrinsics since VS 2008 SP1. We only support
  * VS 2013 and up for other reasons anyway, so no need to check the version. */
 #define MBEDTLS_AESNI_HAVE_INTRINSICS

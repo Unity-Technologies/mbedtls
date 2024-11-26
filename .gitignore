@@ -73,3 +73,6 @@ compile_commands.json
 
 # VScode folder to store local debug files and configurations
 .vscode
+
+# revision file used when creating builds.7z
+gitrevision.txt
