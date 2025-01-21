@@ -1037,6 +1037,9 @@ struct psa_crypto_driver_pake_inputs_s {
     psa_pake_cipher_suite_t MBEDTLS_PRIVATE(cipher_suite);
 };
 
+/** The type of input values for PAKE operations. */
+typedef struct psa_crypto_driver_pake_inputs_s psa_crypto_driver_pake_inputs_t;
+
 struct psa_pake_operation_s {
 #if defined(MBEDTLS_PSA_CRYPTO_CLIENT) && !defined(MBEDTLS_PSA_CRYPTO_C)
     mbedtls_psa_client_handle_t handle;
@@ -1098,9 +1101,6 @@ struct psa_pake_operation_s {
  * make any assumptions about the content of this structure.
  * Implementation details can change in future versions without notice. */
 typedef struct psa_pake_operation_s psa_pake_operation_t;
-
-/** The type of input values for PAKE operations. */
-typedef struct psa_crypto_driver_pake_inputs_s psa_crypto_driver_pake_inputs_t;
 
 /** The type of computation stage for J-PAKE operations. */
 typedef struct psa_jpake_computation_stage_s psa_jpake_computation_stage_t;
