@@ -1026,6 +1026,17 @@ static psa_algorithm_t psa_pake_cs_get_hash(
 static void psa_pake_cs_set_hash(psa_pake_cipher_suite_t *cipher_suite,
                                  psa_algorithm_t hash);
 
+struct psa_crypto_driver_pake_inputs_s {
+    uint8_t *MBEDTLS_PRIVATE(password);
+    size_t MBEDTLS_PRIVATE(password_len);
+    uint8_t *MBEDTLS_PRIVATE(user);
+    size_t MBEDTLS_PRIVATE(user_len);
+    uint8_t *MBEDTLS_PRIVATE(peer);
+    size_t MBEDTLS_PRIVATE(peer_len);
+    psa_key_attributes_t MBEDTLS_PRIVATE(attributes);
+    psa_pake_cipher_suite_t MBEDTLS_PRIVATE(cipher_suite);
+};
+
 struct psa_pake_operation_s {
 #if defined(MBEDTLS_PSA_CRYPTO_CLIENT) && !defined(MBEDTLS_PSA_CRYPTO_C)
     mbedtls_psa_client_handle_t handle;
@@ -1815,17 +1826,6 @@ static inline void psa_pake_cs_set_hash(psa_pake_cipher_suite_t *cipher_suite,
         cipher_suite->hash = hash;
     }
 }
-
-struct psa_crypto_driver_pake_inputs_s {
-    uint8_t *MBEDTLS_PRIVATE(password);
-    size_t MBEDTLS_PRIVATE(password_len);
-    uint8_t *MBEDTLS_PRIVATE(user);
-    size_t MBEDTLS_PRIVATE(user_len);
-    uint8_t *MBEDTLS_PRIVATE(peer);
-    size_t MBEDTLS_PRIVATE(peer_len);
-    psa_key_attributes_t MBEDTLS_PRIVATE(attributes);
-    psa_pake_cipher_suite_t MBEDTLS_PRIVATE(cipher_suite);
-};
 
 typedef enum psa_crypto_driver_pake_step {
     PSA_JPAKE_STEP_INVALID        = 0,  /* Invalid step */
