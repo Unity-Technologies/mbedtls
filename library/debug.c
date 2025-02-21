@@ -449,7 +449,25 @@ void mbedtls_debug_printf_ecdh(const mbedtls_ssl_context *ssl, int level,
                                const mbedtls_ecdh_context *ecdh,
                                mbedtls_debug_ecdh_attr attr)
 {
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4065)
+#endif
+
+#if defined(MBEDTLS_ECDH_LEGACY_CONTEXT)
     mbedtls_debug_printf_ecdh_internal(ssl, level, file, line, ecdh, attr);
+#else
+    switch (ecdh->var) {
+        default:
+            mbedtls_debug_printf_ecdh_internal(ssl, level, file, line, ecdh,
+                                               attr);
+    }
+#endif
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 }
 #endif /* MBEDTLS_KEY_EXCHANGE_SOME_ECDH_OR_ECDHE_ANY_ENABLED &&
           MBEDTLS_ECDH_C */

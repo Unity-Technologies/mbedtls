@@ -117,7 +117,10 @@ static int gcm_gen_table(mbedtls_gcm_context *ctx)
     /* MBEDTLS_GCM_HTABLE_SIZE/2 = 1000 corresponds to 1 in GF(2^128) */
     ctx->H[MBEDTLS_GCM_HTABLE_SIZE/2][0] = u64h[0];
     ctx->H[MBEDTLS_GCM_HTABLE_SIZE/2][1] = u64h[1];
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4065)
+#endif
     switch (ctx->acceleration) {
 #if defined(MBEDTLS_AESNI_HAVE_CODE)
         case MBEDTLS_GCM_ACC_AESNI:
@@ -155,6 +158,9 @@ static int gcm_gen_table(mbedtls_gcm_context *ctx)
                 }
             }
     }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
     return 0;
 }
