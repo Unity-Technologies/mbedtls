@@ -195,6 +195,10 @@ int mbedtls_ecdh_setup(mbedtls_ecdh_context *ctx, mbedtls_ecp_group_id grp_id)
 #if defined(MBEDTLS_ECDH_LEGACY_CONTEXT)
     return ecdh_setup_internal(ctx, grp_id);
 #else
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4065)
+#endif
     switch (grp_id) {
 #if defined(MBEDTLS_ECDH_VARIANT_EVEREST_ENABLED)
         case MBEDTLS_ECP_DP_CURVE25519:
@@ -210,6 +214,9 @@ int mbedtls_ecdh_setup(mbedtls_ecdh_context *ctx, mbedtls_ecp_group_id grp_id)
             ecdh_init_internal(&ctx->ctx.mbed_ecdh);
             return ecdh_setup_internal(&ctx->ctx.mbed_ecdh, grp_id);
     }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 }
 

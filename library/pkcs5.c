@@ -462,6 +462,7 @@ int mbedtls_pkcs5_self_test(int verbose)
     int ret, i;
     unsigned char key[64];
 
+	ret = 0;
     for (i = 0; i < MAX_TESTS; i++) {
         if (verbose != 0) {
             mbedtls_printf("  PBKDF2 (SHA1) #%d: ", i);

@@ -309,7 +309,7 @@ static const uint32_t test_counters[2] =
     1U
 };
 
-static const unsigned char test_input[2][375] =
+static const unsigned char test_input_20[2][375] =
 {
     {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -372,7 +372,7 @@ static const unsigned char test_input[2][375] =
     }
 };
 
-static const unsigned char test_output[2][375] =
+static const unsigned char test_output_20[2][375] =
 {
     {
         0x76, 0xb8, 0xe0, 0xad, 0xa0, 0xf1, 0x3d, 0x90,
@@ -472,12 +472,12 @@ int mbedtls_chacha20_self_test(int verbose)
                                      test_nonces[i],
                                      test_counters[i],
                                      test_lengths[i],
-                                     test_input[i],
+                                     test_input_20[i],
                                      output);
 
         ASSERT(0 == ret, ("error code: %i\n", ret));
 
-        ASSERT(0 == memcmp(output, test_output[i], test_lengths[i]),
+        ASSERT(0 == memcmp(output, test_output_20[i], test_lengths[i]),
                ("failed (output)\n"));
 
         if (verbose != 0) {
