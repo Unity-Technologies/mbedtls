@@ -73,7 +73,7 @@ if(CMAKE_HOST_WIN32)
     # CMakeLists.txt.
     option(GEN_FILES "Generate the auto-generated files as needed" OFF) # off in development
 else()
-    option(GEN_FILES "Generate the auto-generated files as needed" OFF)
+    option(GEN_FILES "Generate the auto-generated files as needed" ON)
 endif()
 
 option(DISABLE_PACKAGE_CONFIG_AND_INSTALL "Disable package configuration, target export and installation" ${MBEDTLS_AS_SUBPROJECT})
@@ -443,9 +443,9 @@ if(ENABLE_TESTING)
         # 2. Run the relevant tests for the part of the code you're interested in.
         #    For the reference coverage measurement, see
         #    tests/scripts/basic-build-test.sh
-        # 3. Run scripts/lcov.sh to generate an HTML report.
+        # 3. Run ${MBEDTLS_FRAMEWORK_DIR}/scripts/lcov.sh to generate an HTML report.
         ADD_CUSTOM_TARGET(lcov
-            COMMAND scripts/lcov.sh
+            COMMAND ${MBEDTLS_FRAMEWORK_DIR}/scripts/lcov.sh
         )
 
         ADD_CUSTOM_TARGET(memcheck

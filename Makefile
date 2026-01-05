@@ -71,7 +71,7 @@ generated_files: visualc_files
 # that lacks some of the necessary tools to re-generate the files.
 # If $(GEN_FILES) is non-empty, the generated source files' dependencies
 # are treated ordinarily, based on file timestamps.
-GEN_FILES ?=
+GEN_FILES ?= yes
 
 # In dependencies where the target is a configuration-independent generated
 # file, use `TARGET: $(gen_file_dep) DEPENDENCY1 DEPENDENCY2 ...`
@@ -193,9 +193,9 @@ ifndef WINDOWS
 # 2. Run the relevant tests for the part of the code you're interested in.
 #    For the reference coverage measurement, see
 #    tests/scripts/basic-build-test.sh
-# 3. Run scripts/lcov.sh to generate an HTML report.
+# 3. Run framework/scripts/lcov.sh to generate an HTML report.
 lcov:
-	scripts/lcov.sh
+	framework/scripts/lcov.sh
 
 apidoc:
 	mkdir -p apidoc

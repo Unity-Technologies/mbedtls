@@ -349,7 +349,7 @@ foreach(target IN LISTS target_libraries)
     # of /library (which currently means: under /3rdparty).
     target_include_directories(${target}
         PUBLIC $<BUILD_INTERFACE:${MBEDTLS_DIR}/include/>
-               $<INSTALL_INTERFACE:include/>
+               $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         PRIVATE ${MBEDTLS_DIR}/library/
                 # Needed to include psa_crypto_driver_wrappers.h
                 ${CMAKE_CURRENT_BINARY_DIR})

@@ -1,0 +1,3 @@
+Bugfix
+   * Fix compilation errors in `aesce.c` in some Visual Studio builds.
+     Fixes Mbed-TLS/TF-PSA-Crypto#548.
