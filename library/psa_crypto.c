@@ -1794,7 +1794,7 @@ static psa_status_t psa_start_key_creation(
     }
 
     int key_is_volatile = PSA_KEY_LIFETIME_IS_VOLATILE(attributes->lifetime);
-    psa_key_id_t volatile_key_id;
+    psa_key_id_t volatile_key_id = 0;
 
 #if defined(MBEDTLS_THREADING_C)
     PSA_THREADING_CHK_RET(mbedtls_mutex_lock(
